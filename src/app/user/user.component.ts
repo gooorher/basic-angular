@@ -1,30 +1,33 @@
-import { Component } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-const random_index = Math.floor(Math.random() * DUMMY_USERS.length);
 @Component({
   selector: 'app-user',
   standalone: true,
   imports: [],
   templateUrl: './user.component.html',
-  styleUrl: './user.component.css'
+  styleUrl: './user.component.css',
 })
-
 export class UserComponent {
-  selectedUser = DUMMY_USERS[random_index];
+  //Input decorators (old approach), still used
+  @Input({ required: true }) id!: string;
+  @Input({ required: true }) avatar!: string;
+  @Input({ required: true }) name!: string;
+  @Output() select = new EventEmitter();
 
   get imagePath() {
-    return 'assets/users/' + this.selectedUser.avatar;
+    return 'assets/users/' + this.avatar;
   }
 
+  //Functions, quite modern
+  //   avatar = input.required<string>();
+  //   name = input.required<string>();
+
+  // imagePath = computed (() => {
+  //     return 'assets/users/' + this.avatar;
+
+  // });
 
   onSelectUser() {
-    console.log('Clicked!');
-    //Generamos otro número aleatorio para cambiar si o sí de usuario cuando hacemos click 
-    const random_index = Math.floor(Math.random() * DUMMY_USERS.length);
-    this.selectedUser = DUMMY_USERS[random_index]
-    //this.selectedUser.set(DUMMY_USERS); ¿Por qué no funciona?
+    this.select.emit(this.id);
   }
-
 }
-
