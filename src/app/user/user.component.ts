@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -8,11 +8,17 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  //Input decorators (old approach), still used
+  //Option 1 Input decorators (old approach), still used
   @Input({ required: true }) id!: string;
   @Input({ required: true }) avatar!: string;
   @Input({ required: true }) name!: string;
-  @Output() select = new EventEmitter();
+  // Option 2 (new)
+  // id = input.required<string>;
+
+  // Option 1 (old, still in use)
+  @Output() select = new EventEmitter<string>();
+  // Option 2 (quite, modern)
+  // select = output<string>(); //Automatically generate the event, so we can emit it in onSelectUser as before
 
   get imagePath() {
     return 'assets/users/' + this.avatar;
