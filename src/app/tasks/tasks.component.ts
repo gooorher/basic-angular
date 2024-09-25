@@ -7,5 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent {
-  @Input({required:true}) selectedUser!: any;
+//   @Input({required:true}) selectedUser!: any;
+@Input({required:true}) name: string | undefined;
 }
